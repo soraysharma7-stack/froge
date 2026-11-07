@@ -1,0 +1,48 @@
+[
+  {
+    "id": "ds_froge_12_area_curriculum_v2",
+    "name": "FROGÉ Complete 12-Area Training Guide Curriculum v2",
+    "filename": "froge_12_area_curriculum_v2.jsonl",
+    "createdAt": "2026-11-02T03:18:00.000Z",
+    "updatedAt": "2026-11-02T03:18:00.000Z",
+    "totalExamples": 60,
+    "validExamples": 60,
+    "invalidExamples": 0,
+    "format": "JSONL (area, phase, skill, instruction, input, output)",
+    "fileSizeBytes": 31420,
+    "split": {
+      "trainCount": 48,
+      "trainPct": 80,
+      "valCount": 12,
+      "valPct": 20,
+      "testCount": 0,
+      "testPct": 0
+    },
+    "status": "validated",
+    "version": "2.0.0",
+    "description": "Complete 5-phase, 12-area multi-skill training corpus built from the FROGÉ AI Complete Training Guide (Language, Knowledge, Concepts, Logic, Critical Thinking, Research, Coding, Tools, Planning, Memory, Self-Verification, Multilingual/Hinglish). Strictly zero overlap with the 36-case held-out benchmark suite."
+  },
+  {
+    "id": "ds_froge_gold_alignment_v1",
+    "name": "FROGÉ Gold Alignment Benchmark & Principles v1",
+    "filename": "froge_gold_alignment_v1.jsonl",
+    "createdAt": "2026-10-09T08:35:00.000Z",
+    "updatedAt": "2026-10-10T08:56:00.000Z",
+    "totalExamples": 81,
+    "validExamples": 81,
+    "invalidExamples": 0,
+    "format": "JSONL (instruction, input, output)",
+    "fileSizeBytes": 26210,
+    "split": {
+      "trainCount": 65,
+      "trainPct": 80,
+      "valCount": 8,
+      "valPct": 10,
+      "testCount": 8,
+      "testPct": 10
+    },
+    "status": "validated",
+    "version": "1.2.0",
+    "description": "Comprehensive behavioral alignment, multi-mode reasoning, arithmetic verification, system architecture diagnostics, and prompt constraint benchmarks (81 gold pairs)."
+  }
+]

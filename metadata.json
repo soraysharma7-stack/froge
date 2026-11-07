@@ -1,0 +1,6 @@
+{
+  "name": "FROGÉ AI - App 1",
+  "description": "FROGÉ App 1: Advanced AI workspace powered by FROGÉ Brain and Model Gateway with 5 intelligent modes (Simple Chat, Deep Thinking, FROGÉ Code, MAX, Student Mode), live web search, and verified cognitive exploration.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

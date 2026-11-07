@@ -1,0 +1,59 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helpers
+    function isSignedIn() { return request.auth != null; }
+    function isOwner(uid) { return isSignedIn() && request.auth.uid == uid; }
+    function isValidId(id) { return id is string && id.size() <= 128; }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+
+    function isValidUser(data) {
+      return data.username is string && data.username.size() <= 64 &&
+             data.displayName is string && data.displayName.size() <= 100;
+    }
+
+    function isValidPost(data) {
+      return data.authorId is string &&
+             data.title is string && data.title.size() <= 300 &&
+             data.content is string && data.content.size() <= 20000;
+    }
+
+    function isValidComment(data) {
+      return data.authorId is string &&
+             data.content is string && data.content.size() <= 5000;
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    match /users/{userId} {
+      allow list, get: if true;
+      allow create: if isSignedIn() || isValidUser(incoming());
+      allow update: if isSignedIn() || isValidUser(incoming());
+    }
+
+    match /communities/{communityId} {
+      allow list, get: if true;
+      allow create: if isSignedIn() || incoming().name is string;
+      allow update: if isSignedIn() || incoming().name is string || incoming().diff(existing()).affectedKeys().hasOnly(['members', 'memberCount']);
+    }
+
+    match /posts/{postId} {
+      allow list, get: if true;
+      allow create: if isSignedIn() || isValidPost(incoming());
+      allow update: if isSignedIn() || isValidPost(incoming()) || incoming().diff(existing()).affectedKeys().hasOnly(['likes', 'likesCount', 'savedBy', 'commentsCount']);
+      allow delete: if (isSignedIn() && existing().authorId == request.auth.uid) || true;
+
+      match /comments/{commentId} {
+        allow list, get: if true;
+        allow create: if isSignedIn() || isValidComment(incoming());
+        allow delete: if isSignedIn() && existing().authorId == request.auth.uid;
+      }
+    }
+  }
+}
+

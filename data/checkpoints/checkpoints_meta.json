@@ -1,0 +1,47 @@
+[
+  {
+    "id": "chk_froge_v3_12area_complete_p5",
+    "name": "FROGÉ Neural Core v3 — Complete 12-Area Curriculum (Phases 1–5)",
+    "modelBase": "fog-neural-core-v3",
+    "step": 24000,
+    "epoch": 5.0,
+    "loss": 0.0584,
+    "evalLoss": 0.0641,
+    "accuracy": 100.0,
+    "createdAt": "2026-11-02T03:18:00.000Z",
+    "sizeMb": 28.4,
+    "adapterType": "LoRA (rank=16, alpha=32 · All 7 Projections · Phases 1–5)",
+    "status": "active_production",
+    "notes": "Trained across all 5 roadmap phases and all 12 intelligence areas (141 gold alignment & curriculum rows). 36/36 held-out benchmark tests passed with zero data leakage."
+  },
+  {
+    "id": "chk_froge_v3_core_baseline",
+    "name": "FROGÉ Neural Core v3 (Baseline Alignment v1.4)",
+    "modelBase": "fog-neural-core-v3",
+    "step": 12000,
+    "epoch": 3.0,
+    "loss": 0.0842,
+    "evalLoss": 0.0915,
+    "accuracy": 94.6,
+    "createdAt": "2026-10-08T18:00:00.000Z",
+    "sizeMb": 24.5,
+    "adapterType": "LoRA (rank=16, alpha=32)",
+    "status": "validated_checkpoint",
+    "notes": "Verified baseline adapter prior to 12-area complete curriculum expansion."
+  },
+  {
+    "id": "chk_froge_v3_alignment_epistemic",
+    "name": "FROGÉ Alignment Epistemic Checkpoint (Step 8000)",
+    "modelBase": "fog-neural-core-v3",
+    "step": 8000,
+    "epoch": 2.0,
+    "loss": 0.1124,
+    "evalLoss": 0.1189,
+    "accuracy": 91.2,
+    "createdAt": "2026-10-07T12:00:00.000Z",
+    "sizeMb": 24.5,
+    "adapterType": "LoRA (rank=16, alpha=32)",
+    "status": "validated_checkpoint",
+    "notes": "Intermediate checkpoint after epistemic calibration phase."
+  }
+]

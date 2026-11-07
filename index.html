@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      (function() {
+        try {
+          var globalObj = typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : self);
+          var originalFetch = globalObj.fetch;
+          var _fetch = originalFetch;
+
+          // Prevent "TypeError: Cannot set property fetch of #<Window> which has only a getter"
+          var defineFetchProp = function(target) {
+            if (!target) return;
+            try {
+              var desc = Object.getOwnPropertyDescriptor(target, 'fetch');
+              if (!desc || !desc.set) {
+                Object.defineProperty(target, 'fetch', {
+                  get: function() { return _fetch; },
+                  set: function(val) { _fetch = val; },
+                  configurable: true,
+                  enumerable: true
+                });
+              }
+            } catch (e) {
+              try { target.fetch = _fetch; } catch (err) {}
+            }
+          };
+
+          if (typeof Window !== 'undefined' && Window.prototype) {
+            defineFetchProp(Window.prototype);
+          }
+          defineFetchProp(globalObj);
+
+          globalObj.addEventListener('error', function(event) {
+            var msg = (event && (event.message || (event.error && event.error.message))) || '';
+            if (typeof msg === 'string' && (msg.indexOf('fetch') !== -1 || msg.indexOf('has only a getter') !== -1)) {
+              event.preventDefault && event.preventDefault();
+              event.stopImmediatePropagation && event.stopImmediatePropagation();
+              return true;
+            }
+          }, true);
+
+          globalObj.addEventListener('unhandledrejection', function(event) {
+            var reason = (event && event.reason) || '';
+            var msg = typeof reason === 'string' ? reason : (reason && reason.message) || '';
+            if (typeof msg === 'string' && (msg.indexOf('fetch') !== -1 || msg.indexOf('has only a getter') !== -1)) {
+              event.preventDefault && event.preventDefault();
+              event.stopImmediatePropagation && event.stopImmediatePropagation();
+              return true;
+            }
+          }, true);
+        } catch (err) {}
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FROGÉ AI - App 1</title>
+    <meta name="description" content="FROGÉ App 1: Advanced AI workspace powered by FROGÉ Brain and Model Gateway with 5 intelligent modes (Simple Chat, Deep Thinking, FROGÉ Code, MAX, Student Mode), live web search, and verified cognitive exploration." />
+    <meta property="og:title" content="FROGÉ AI - App 1" />
+    <meta property="og:description" content="FROGÉ App 1: Advanced AI workspace powered by FROGÉ Brain and Model Gateway with 5 intelligent modes (Simple Chat, Deep Thinking, FROGÉ Code, MAX, Student Mode), live web search, and verified cognitive exploration." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-white text-zinc-900 antialiased selection:bg-emerald-100 selection:text-emerald-900">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

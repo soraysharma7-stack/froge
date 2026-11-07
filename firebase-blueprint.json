@@ -1,0 +1,70 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "username": { "type": "string", "description": "Unique username", "maxLength": 32, "pattern": "^[a-zA-Z0-9_]+$" },
+        "displayName": { "type": "string", "description": "Display name", "maxLength": 100 },
+        "bio": { "type": "string", "description": "User bio", "maxLength": 500 }
+      },
+      "required": ["username"]
+    },
+    "Post": {
+      "title": "Post",
+      "description": "Community post",
+      "type": "object",
+      "properties": {
+        "authorId": { "type": "string", "description": "User ID of author" },
+        "title": { "type": "string", "description": "Post title", "maxLength": 200 },
+        "content": { "type": "string", "description": "Post content", "maxLength": 10000 },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["authorId", "title", "content", "createdAt"]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "Comment on a post",
+      "type": "object",
+      "properties": {
+        "authorId": { "type": "string", "description": "User ID of author" },
+        "content": { "type": "string", "description": "Comment content", "maxLength": 2000 },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["authorId", "content", "createdAt"]
+    },
+    "Community": {
+      "title": "Community",
+      "description": "Topic-based community group",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Community name", "maxLength": 100 },
+        "description": { "type": "string", "description": "Community description", "maxLength": 500 },
+        "category": { "type": "string", "description": "Category name" },
+        "icon": { "type": "string", "description": "Icon identifier" },
+        "memberCount": { "type": "number", "description": "Number of members" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["name", "description"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/communities/{communityId}": {
+      "schema": "Community",
+      "description": "Communities directory"
+    },
+    "/posts/{postId}": {
+      "schema": "Post",
+      "description": "Community posts"
+    },
+    "/posts/{postId}/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Comments on a post"
+    }
+  }
+}
